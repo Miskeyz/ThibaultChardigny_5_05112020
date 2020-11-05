@@ -1,13 +1,19 @@
 {
-  "name": "orinoco-backend",
+  "name": "ThibaultChardigny_5_05112020",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "sass": "sass --watch ./sass/main.scss:./css/style.css",
+    "prefix": "postcss ./CSS/style.css --use autoprefixer -d ./CSS/prefixed"
+  },
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Miskeyz/ThibaultChardigny_5_05112020.git"
   },
   "author": "",
   "license": "ISC",
+  "browserslist": "last 4 versions",
   "dependencies": {
     "bcrypt": "^5.0.0",
     "body-parser": "^1.18.3",
