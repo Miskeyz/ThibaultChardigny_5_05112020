@@ -1,0 +1,74 @@
+h1 {
+  font-family: "Merriweather Sans", sans-serif;
+  color: #e78b07;
+}
+
+.header {
+  background-color: #f3e9f1;
+  padding: 5px 15px 5px 0;
+}
+
+.panier-text {
+  top: 11px;
+  right: 29px;
+  font-size: 1.3em;
+}
+
+#produits-grid {
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  grid-gap: 40px;
+}
+
+.produits-card {
+  box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 1;
+}
+.produits-card::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  background-color: white;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+.produits-card:hover {
+  text-decoration: none;
+}
+.produits-card:hover::after {
+  opacity: 0.6;
+}
+.produits-card__heading {
+  color: #8f5bfe;
+}
+@media screen and (max-width: 768px) {
+  .produits-card__heading {
+    font-size: 1.2em;
+  }
+}
+.produits-card__prix {
+  color: #000000;
+}
+@media screen and (max-width: 768px) {
+  .produits-card__prix {
+    font-size: 0.9em;
+  }
+}
+.produits-card__img {
+  height: 275px;
+  object-fit: cover;
+}
+@media screen and (max-width: 768px) {
+  .produits-card__img {
+    height: auto;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
