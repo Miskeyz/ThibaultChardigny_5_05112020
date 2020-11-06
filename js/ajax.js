@@ -12,6 +12,11 @@ function ajaxGet(url, callback)
 		else
 		{
 			console.error(req.status + ' ' + req.statusText + ' ' + url);
+
+            var message = document.createElement('p');
+            message.textContent = 'Désolé, cette ressource n\'existe pas !';
+            var containerProduit = document.getElementById('produit');
+            containerProduit.appendChild(message);
 		}
 	});
 

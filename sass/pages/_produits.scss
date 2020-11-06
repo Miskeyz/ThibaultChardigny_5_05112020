@@ -1,0 +1,15 @@
+.produit
+{
+	border: 3px solid $primary-color;
+
+	&__img
+	{
+		width: 50%;
+		margin-bottom: 20px;
+	}
+
+	&__submit
+	{
+		margin-top: 20px;
+	}
+}

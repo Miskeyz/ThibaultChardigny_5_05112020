@@ -71,4 +71,15 @@ h1 {
   }
 }
 
+.produit {
+  border: 3px solid #8f5bfe;
+}
+.produit__img {
+  width: 50%;
+  margin-bottom: 20px;
+}
+.produit__submit {
+  margin-top: 20px;
+}
+
 /*# sourceMappingURL=style.css.map */
