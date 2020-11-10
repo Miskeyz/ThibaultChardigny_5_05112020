@@ -87,6 +87,7 @@ h1, h2 {
   text-align: left;
   padding: 20px;
   margin-top: 20px;
+  margin-bottom: 100px;
 }
 
 .submit-btn {
@@ -101,6 +102,27 @@ h1, h2 {
 
 .redBorder {
   border: 2px solid red;
+}
+
+.ligne {
+  border: 1px solid black;
+  margin-bottom: 20px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bouton-panier {
+  margin-top: 10px;
+}
+
+#prix-total {
+  text-align: right;
+}
+
+span {
+  margin-right: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

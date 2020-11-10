@@ -68,12 +68,18 @@ ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
 	formElt.appendChild(document.createElement('br'));
 	formElt.appendChild(submitElt);
 
+	// Ajout d'un élément pour afficher les messages d'erreurs :
+
+	var errorElt = document.createElement('p');
+	errorElt.id = 'errorElt';
+
 	// Ajout des éléments à la page HTML :
 	containerProduit.appendChild(nomProduit);
 	containerProduit.appendChild(imgProduit);
 	containerProduit.appendChild(descriptionProduit);
 	containerProduit.appendChild(prixProduit);
 	containerProduit.appendChild(formElt);
+	containerProduit.appendChild(errorElt);
 
 	// Envoi du produit selectionné au panier :
 
@@ -94,37 +100,78 @@ ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
 	{
 		e.preventDefault();
 
-		// On vérifie si l'article n'est pas déjà dans le panier :
+		// Selection du produit concerné : 
 
-		var panierActuel = localStorage.getItem(id + couleurChoisie);
+		var currentProduit = id + couleurChoisie;
+		var quantite;
+		var panierQuantite;
 
-		if(JSON.parse(panierActuel) != null)
+		// Vérification du bon fonctionnement du local storage :
+
+		if(storageAvailable('localStorage'))
 		{
-			var quantite = JSON.parse(panierActuel).quantite + 1;
+			// Ajout d'un élément si l'élément n'existe pas encore :
+
+			if(!localStorage.getItem(currentProduit))
+			{
+				quantite = 1;
+			}
+
+			// Sinon on ajoute 1 à sa quantité :
+
+			else
+			{
+				currentArticle = localStorage.getItem(currentProduit);
+				var currentQuantite = JSON.parse(currentArticle);
+				quantite = currentQuantite.quantite + 1;
+			}
+
+			// Ajout d'un élément au panier :
+
+			if(!localStorage.getItem('panier'))
+			{
+				panierQuantite = 1;
+			}
+
+			else
+			{
+				panier = localStorage.getItem('panier');
+				panierResult = JSON.parse(panier);
+				panierQuantite = panierResult + 1;
+			}
+
+			// Création de l'objet à envoyer :
+
+			var envoiPanier = 
+			{
+				id: id,
+				nom: infosProduit.name,
+				couleur: couleurChoisie,
+				prix: infosProduit.price,
+				quantite: quantite 
+			}
+
+			// Envoi des données au local storage : 
+
+			localStorage.setItem(currentProduit, JSON.stringify(envoiPanier));
+			localStorage.setItem('panier', panierQuantite);
+
+			// Mise à jour du numéro inscrit dans l'icone du panier :
+
+			var panierLabelNumber = localStorage.getItem('panier');
+			var panierLabel = document.getElementsByClassName('panier-text')[0];
+			panierLabel.textContent = panierLabelNumber;
 		}
 
 		else
 		{
-			var quantite = 1;
-		} 
-
-		var ajoutPanier = 
-		{
-			id: id,
-			nom: nomChoisie,
-			prix: prixChoisie,
-			personnalisation: couleurChoisie,
-			quantite: quantite
-		};
-		
-		var commande_json = JSON.stringify(ajoutPanier);
-		localStorage.setItem(id + couleurChoisie, commande_json);
+			var error = document.getElementById('errorElt');
+			error.textContent = 'Oups panier indisponible !';
+			error.style.color = 'red';
+		}
 	});
 });
 
-var panier = window.localStorage;
-
-console.log(panier.length);
 
 
 
