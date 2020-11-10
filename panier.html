@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang='fr'>
+	<head>
+		<meta charset="utf-8" />		
+
+		<!-- Polices Google Fonts -->
+
+		<link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+
+		<!-- Font Awesome -->
+
+		<script src="https://kit.fontawesome.com/2d084ff9b8.js" crossorigin="anonymous"></script>
+
+		<!-- Style CSS -->
+
+		<link rel="stylesheet" href="./css/style.css" />
+
+		<!-- Bootstrap -->
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+		<!-- Titre de la page -->
+
+		<title>Panier - Orinoco</title>
+
+		<!-- RESPONSIVE -->
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	</head>
+
+	<body>
+
+		<header class="header px-sm-5 py-sm-3">
+
+			<div class="container-fluid">
+
+				<div class="row align-items-center justify-content-between">
+
+					<div class="col-4">
+
+						<a href="index.html"><img src="./images/logo_seul.png" alt="Logo de Orinoco, retour à la page principale" /></a>
+
+					</div>
+
+					<div class="col-4">	
+
+						<div class="row justify-content-end align-items-center">
+
+							<a href="panier.html">
+
+								<img class="position-relative" src="./images/caddy.png" alt="" />
+
+								<p class="position-absolute text-white panier-text font-weight-bold">0</p>
+
+							</a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+		</header>
+
+		<main>
+
+			<div class="text-center text-uppercase align mt-5">
+
+				<h1 class="h3">Panier</h1>
+
+			</div>
+
+			<div class="container">
+
+				<div class="commande rounded">
+
+				</div>
+
+			</div>
+
+			<div class="text-center text-uppercase align mt-5">
+
+				<h2 class="h3 commande__heading">Commander</h1>
+
+			</div>
+
+			<div class="container">
+				<form class="commande rounded">
+					
+					<p>
+						<label for="prenom">Prénom :</label><br>
+						<input type="text" name="prenom" id="prenom" required size="30" /><span id="errorPrenom"></span>
+					</p>
+
+					<p>
+						<label for="nom">Nom :</label><br>
+						<input type="text" name="nom" id="nom" required size="30" /><span id="errorNom"></span>
+					</p>
+
+					<p>
+						<label for="adresse">Adresse :</label><br>
+						<input type="text" name="adresse" id="adresse" required size="50" /><span id="errorAdresse"></span>
+					</p>
+
+					<p>
+						<label for="cp">Code Postal :</label><br>
+						<input type="text" name="cp" id="cp" required size="10" /><span id="errorCp"></span>
+					</p>
+
+					<p>
+						<label for="ville">Ville :</label><br>
+						<input type="text" name="ville" id="ville" required size="30" /><span id="errorVille"></span>
+					</p>
+
+					<p>
+						<label for="mail">Adresse électronique :</label><br>
+						<input type="email" name="mail" id="mail" required size="40" /><span id="errorMail"></span>
+					</p>
+
+					<p>
+						<input type="submit" name="envoyer" id="envoyer" value="Commander" class="submit-btn" />
+					</p>
+
+				</form>
+
+			</div>
+
+		</main>
+
+		<!-- Import du script de la page index.js -->
+
+		<script type="text/javascript" src="./js/ajax.js"></script>
+		<script type="text/javascript" src="./js/form.js"></script>
+		
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	</body>
+</html>
