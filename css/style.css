@@ -1,4 +1,4 @@
-h1 {
+h1, h2 {
   font-family: "Merriweather Sans", sans-serif;
   color: #e78b07;
 }
@@ -80,6 +80,27 @@ h1 {
 }
 .produit__submit {
   margin-top: 20px;
+}
+
+.commande {
+  border: 2px solid #8f5bfe;
+  text-align: left;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.submit-btn {
+  margin-top: 20px;
+  width: 200px;
+  height: 50px;
+}
+
+.greenBorder {
+  border: 2px solid green;
+}
+
+.redBorder {
+  border: 2px solid red;
 }
 
 /*# sourceMappingURL=style.css.map */

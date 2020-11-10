@@ -34,6 +34,7 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 			cardElt.classList = 'card produits-card col-4 p-0 rounded'
 			cardElt.href = 'produit.html?id=' + listeProduits[i]._id;
 
+
 			// Création du contenu de la carte :
 			var cardBodyElt = document.createElement('div');
 			cardBodyElt.classList = 'card-body p-0 produits-card__body';
