@@ -82,7 +82,7 @@ h1, h2 {
   margin-top: 20px;
 }
 
-.commande {
+#form-container, .commande {
   border: 2px solid #8f5bfe;
   text-align: left;
   padding: 20px;
@@ -123,6 +123,11 @@ h1, h2 {
 
 span {
   margin-right: 20px;
+}
+
+.confirmation__heading {
+  color: green;
+  text-align: center;
 }
 
 /*# sourceMappingURL=style.css.map */
