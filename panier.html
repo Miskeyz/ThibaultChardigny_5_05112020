@@ -86,37 +86,37 @@
 
 			</div>
 
-			<div class="container">
-				<form class="commande rounded">
+			<div class="container rounded" id="form-container">
+				<form class="rounded">
 					
 					<p>
 						<label for="prenom">Prénom :</label><br>
-						<input type="text" name="prenom" id="prenom" required size="30" /><span id="errorPrenom"></span>
+						<input type="text" name="prenom" id="prenom" value="Thibault" required size="30" /><span id="errorPrenom"></span>
 					</p>
 
 					<p>
 						<label for="nom">Nom :</label><br>
-						<input type="text" name="nom" id="nom" required size="30" /><span id="errorNom"></span>
+						<input type="text" name="nom" id="nom" required size="30" value="Chardigny" /><span id="errorNom"></span>
 					</p>
 
 					<p>
 						<label for="adresse">Adresse :</label><br>
-						<input type="text" name="adresse" id="adresse" required size="50" /><span id="errorAdresse"></span>
+						<input type="text" name="adresse" id="adresse" required size="50" value="131C Avenue Général frère" /><span id="errorAdresse"></span>
 					</p>
 
 					<p>
 						<label for="cp">Code Postal :</label><br>
-						<input type="text" name="cp" id="cp" required size="10" /><span id="errorCp"></span>
+						<input type="text" name="cp" id="cp" required size="10" value="69008" /><span id="errorCp"></span>
 					</p>
 
 					<p>
 						<label for="ville">Ville :</label><br>
-						<input type="text" name="ville" id="ville" required size="30" /><span id="errorVille"></span>
+						<input type="text" name="ville" id="ville" required size="30"  value="Lyon" /><span id="errorVille"></span>
 					</p>
 
 					<p>
 						<label for="mail">Adresse électronique :</label><br>
-						<input type="email" name="mail" id="mail" required size="40" /><span id="errorMail"></span>
+						<input type="email" name="mail" id="mail" required size="40" value="thibault.chardigny@gmail.com"/><span id="errorMail"></span>
 					</p>
 
 					<p>
@@ -132,8 +132,8 @@
 		<!-- Import du script de la page index.js -->
 
 		<script type="text/javascript" src="./js/ajax.js"></script>
-		<script type="text/javascript" src="./js/panier.js"></script>
 		<script type="text/javascript" src="./js/form.js"></script>
+		<script type="text/javascript" src="./js/panier.js"></script>
 		<script type="text/javascript" src="./js/btn_panier.js"></script>
 		
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->

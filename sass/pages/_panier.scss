@@ -1,4 +1,4 @@
-.commande
+#form-container, .commande
 {
 	border: 2px solid $primary-color;
 	text-align: left;
@@ -47,4 +47,13 @@
 span
 {
 	margin-right: 20px;
+}
+
+.confirmation
+{
+	&__heading
+	{
+		color: green;
+		text-align: center;
+	}
 }
