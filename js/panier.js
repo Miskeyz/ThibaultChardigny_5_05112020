@@ -160,8 +160,6 @@ submitForm. addEventListener('click', function(e)
 
 	// Vérification de l'existance d'au moins 1 produit dans le panier :
 
-	console.log(products.length);
-
 	if(products.length > 0)
 	{
 		// Création de l'objet “contact“ :
