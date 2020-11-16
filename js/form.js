@@ -1,10 +1,6 @@
-// Récupération des données contenus dans le panier :
-
-
-
-
-
 // Vérification des données saisies dans le formulaire :
+
+// Récupération des différents champs à contrôler : 
 
 var form = document.getElementsByTagName('form')[0];
 
@@ -23,11 +19,14 @@ var errorVille = document.getElementById('errorVille');
 var mail = document.getElementById('mail');
 var errorMail = document.getElementById('errorMail');
 
+// Paramétrage des variables de contrôles avec des regex :
+
 var regexNomPrenomVille = /^[A-Za-z-áÁâÂàÀåÅãÃäÄæÆçÇéÉêÊèÈëËíÍîÎìÌïÏñÑóÓôÔòÒøØõÕöÖœŒšŠúÚûÛùÙüÜýÝÿŸ]+$/;
 var regexAdresse = /^[0-9]+\s*[A-Za-z]*\s[A-Za-z]+\s[A-Za-z0-9\sàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+$/;
 var regexCp = /[0-9]{5}/;
 var regexMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
+// Création de la fonction globale qui servira à effectuer les tests :
 
 function verificationForm(regex, inputValue, errorMessage)
 {
@@ -50,6 +49,8 @@ function verificationForm(regex, inputValue, errorMessage)
 
 	});
 }
+
+// Mise en application de notre fonction de test :
 
 verificationForm(regexNomPrenomVille, prenom, errorPrenom);
 verificationForm(regexNomPrenomVille, nom, errorNom);
