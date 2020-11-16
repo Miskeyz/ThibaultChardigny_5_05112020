@@ -81,7 +81,7 @@ form.addEventListener('input', function()
 	{
 		submitElt.setAttribute('disabled', 'true')
 	}
-})
+});
 
 
 
