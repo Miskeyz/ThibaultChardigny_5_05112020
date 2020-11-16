@@ -3,99 +3,64 @@
 var searchId = (new URL(document.location)).searchParams;
 let id = searchId.get('id');
 
-// // Récupération de notre container dans le DOM :
+// Création des variables de notre produit :
 
-var containerProduit = document.getElementById('produit');
+var couleurChoisie;
+var prixChoisie;
+var nomChoisie;
 
-// Création de la requête AJAX pour récupérer les données dans l'API :
+// Création de la requête Fetch pour récupérer les données dans l'API :
 
-ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
+var url = 'http://localhost:3000/api/teddies/' + id;
+
+fetch(url)
+.then (response => response.json())
+
+// Création de notre objet et instanciation pour créer le bloc produit :
+
+.then (response => 
 {
-	// Conversion des données reçuent en chaine de caractère :
+	var newProduit = new Produit
+	(
+		response.colors,
+		response._id,
+		response.name,
+		response.price,
+		response.imageUrl,
+		response.description
+	);
 
-	var infosProduit = JSON.parse(reponse);
+	newProduit.produitCreation();
 
-	// Création du bloc produit :
+	var couleurProduit = document.getElementsByTagName('select')[0];
 
-	// Création de l'élément titre :
-	var nomProduit = document.createElement('h1');
-	nomProduit.textContent = infosProduit.name;
-	nomProduit.classList = 'produit__heading';
+	// Mise à jour de nos variables en fonction du produit chargé :
 
-	// Création de l'élément IMG :
-	var imgProduit = document.createElement('img');
-	imgProduit.src = infosProduit.imageUrl;
-	imgProduit.classList = 'produit__img';
+	couleurChoisie = couleurProduit.value;
+	nomChoisie = response.name;
+	prixChoisie = response.price;
+})
 
-	// Création de l'élément description :
-	var descriptionProduit = document.createElement('p');
-	descriptionProduit.textContent = infosProduit.description;
-	descriptionProduit.classList = 'produit__txt';
-
-	// Création de l'élément prix :
-	var prixProduit = document.createElement('p');
-	prixProduit.textContent = (infosProduit.price / 100) + ' €';
-	prixProduit.classList = 'produit__prix';
-
-	// Remplissage du formulaire pour le choix de couleur et la commande :
-	var formElt = document.createElement('form');
-	formElt.classList = 'produit__form';
-	formElt.id = 'produit__form';
-
-	// Création de l'élément select pour le choix de la couleur :
-	var couleurProduit = document.createElement('select');
-	var couleurs = infosProduit.colors;
-
-	// Création des options :
-	couleurs.forEach(function(couleur)
-	{
-		var couleurOption = document.createElement('option');
-		couleurOption.setAttribute = couleur;
-		couleurOption.textContent = couleur;
-		couleurProduit.appendChild(couleurOption);
-	});
-
-	// Création du bouton pour ajouter au panier :
-
-	var submitElt = document.createElement('input');
-	submitElt.type = 'submit';
-	submitElt.value = 'Ajouter au panier';
-	submitElt.classList = 'produit__submit';
-
-	// Ajout du menu déroulant et du bouton au formulaire :
-
-	formElt.appendChild(couleurProduit);
-	formElt.appendChild(document.createElement('br'));
-	formElt.appendChild(submitElt);
-
-	// Ajout d'un élément pour afficher les messages d'erreurs :
-
-	var errorElt = document.createElement('p');
-	errorElt.id = 'errorElt';
-
-	// Ajout des éléments à la page HTML :
-	containerProduit.appendChild(nomProduit);
-	containerProduit.appendChild(imgProduit);
-	containerProduit.appendChild(descriptionProduit);
-	containerProduit.appendChild(prixProduit);
-	containerProduit.appendChild(formElt);
-	containerProduit.appendChild(errorElt);
-
-	// Envoi du produit selectionné au panier :
-
-	var couleurChoisie = couleurProduit.value;
-	var nomChoisie = infosProduit.name;
-	var prixChoisie = infosProduit.price;
-
+.then (response => 
+{
 	// On écoute les changements de la valeur de personnalisation de couleur :
+
+	var couleurProduit = document.getElementsByTagName('select')[0];
 
 	couleurProduit.addEventListener('change', function(e)
 	{
 		couleurChoisie = e.target.value;
 	});
 
-	// On écoute les click sur le bouton “Ajouter au panier“ :
+})
 
+// On écoute les click sur le bouton “Ajouter au panier“ :
+
+.then (response => 
+{
+	var formElt = document.getElementsByTagName('form')[0];
+	var couleurProduit = document.getElementsByTagName('select')[0];
+	
 	formElt.addEventListener('submit', function(e)
 	{
 		e.preventDefault();
@@ -103,10 +68,12 @@ ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
 		// Selection du produit concerné : 
 
 		var currentProduit = id + couleurChoisie;
+
 		var quantite;
 		var panierQuantite;
 
-		// Vérification du bon fonctionnement du local storage :
+		/* Vérification du bon fonctionnement du local storage 
+		(voir la fonction dans ajax.js) : */
 
 		if(storageAvailable('localStorage'))
 		{
@@ -126,12 +93,14 @@ ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
 				quantite = currentQuantite.quantite + 1;
 			}
 
-			// Ajout d'un élément au panier :
+			// Ajout d'un élément au panier si il est vide :
 
 			if(!localStorage.getItem('panier'))
 			{
 				panierQuantite = 1;
 			}
+
+			// Sinon on prend la valeur actuel et on lui ajoute 1 :
 
 			else
 			{
@@ -145,9 +114,9 @@ ajaxGet('http://localhost:3000/api/teddies/' + id, function(reponse)
 			var envoiPanier = 
 			{
 				id: id,
-				nom: infosProduit.name,
+				nom: nomChoisie,
 				couleur: couleurChoisie,
-				prix: infosProduit.price,
+				prix: prixChoisie,
 				quantite: quantite 
 			}
 
