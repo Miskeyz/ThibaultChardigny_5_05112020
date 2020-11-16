@@ -19,6 +19,10 @@ var errorVille = document.getElementById('errorVille');
 var mail = document.getElementById('mail');
 var errorMail = document.getElementById('errorMail');
 
+var submitElt = document.getElementById('envoyer');
+
+var validate = false;
+
 // Paramétrage des variables de contrôles avec des regex :
 
 var regexNomPrenomVille = /^[A-Za-z-áÁâÂàÀåÅãÃäÄæÆçÇéÉêÊèÈëËíÍîÎìÌïÏñÑóÓôÔòÒøØõÕöÖœŒšŠúÚûÛùÙüÜýÝÿŸ]+$/;
@@ -44,7 +48,7 @@ function verificationForm(regex, inputValue, errorMessage)
 		{
 			inputValue.classList = 'redBorder';
 			errorMessage.textContent = ' ✗';
-			errorMessage.style.color = 'red';
+			errorMessage.style.color = 'red';	
 		}
 
 	});
@@ -58,6 +62,27 @@ verificationForm(regexAdresse, adresse, errorAdresse);
 verificationForm(regexCp, cp, errorCp);
 verificationForm(regexMail, mail, errorMail);
 verificationForm(regexNomPrenomVille, ville, errorVille);
+
+// Vérification que tous les champs du formulaire sont valide :
+
+form.addEventListener('input', function()
+{
+	var errorSearch = document.getElementsByClassName('greenBorder');
+
+	// Si c'est bien le cas on réactive le bouton pour envoyer :
+	if(errorSearch.length === 6)
+	{
+		submitElt.removeAttribute('disabled');
+	}
+
+
+	// Sinon le bouton reste inactif :
+	else
+	{
+		submitElt.setAttribute('disabled', 'true')
+	}
+})
+
 
 
 
