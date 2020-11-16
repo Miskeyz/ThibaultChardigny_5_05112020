@@ -7,7 +7,7 @@ produits une fois le panier chargé : */
 
 var products = [];
 
-/* Création d'une requête ajax pour scanner le localstorage en fonction 
+/* Création d'une requête ajax pour scanner le local storage en fonction 
 des id et couleurs (les clés créées dans le localstorage sont au format id + couleur)*/
 
 ajaxGet('http://localhost:3000/api/teddies', function(reponse)
@@ -158,91 +158,104 @@ submitForm. addEventListener('click', function(e)
 {
 	e.preventDefault();
 
-	// Création de l'objet “contact“ :
+	// Vérification de l'existance d'au moins 1 produit dans le panier :
 
-	var contact = 
+	console.log(products.length);
+
+	if(products.length > 0)
 	{
-		firstName: document.getElementById('prenom').value,
-		lastName: document.getElementById('nom').value,
-		address: document.getElementById('adresse').value,
-		city: document.getElementById('ville').value,
-		email: document.getElementById('mail').value
-	}
+		// Création de l'objet “contact“ :
 
-	// Mise au format JSON :
-
-	var maCommande = new Commande(contact, products);
-	var maCommandeJSON = JSON.stringify(maCommande);
-
-	// Création des paramètres de notre futur requête fetch :
-
-	var options = 
-	{
-		method: 'POST',
-		body: maCommandeJSON,
-		headers: 
+		var contact = 
 		{
-			'Content-Type': 'application/json'
+			firstName: document.getElementById('prenom').value,
+			lastName: document.getElementById('nom').value,
+			address: document.getElementById('adresse').value,
+			city: document.getElementById('ville').value,
+			email: document.getElementById('mail').value
 		}
-	}
 
-	var url = 'http://localhost:3000/api/teddies/order';
+		// Mise au format JSON :
 
-	// Vérification du bon fonctionnenment de fetch :
+		var maCommande = new Commande(contact, products);
+		var maCommandeJSON = JSON.stringify(maCommande);
 
-	if(window.fetch)
-	{
+		// Création des paramètres de notre futur requête fetch :
 
-		// Envoi de la requête POST au serveur via fetch
-		fetch(url, options)
-		.then (response => response.json())
-
-		// Affichage de la confirmation de la commande et du récapitulatif :
-		.then(response => 
+		var options = 
+		{
+			method: 'POST',
+			body: maCommandeJSON,
+			headers: 
 			{
-				var prixCommande = 0;
+				'Content-Type': 'application/json'
+			}
+		}
 
-				var prixArticlesCommande = response.products;
-				prixArticlesCommande.forEach(function(article)
+		var url = 'http://localhost:3000/api/teddies/order';
+
+		// Vérification du bon fonctionnenment de fetch :
+
+		if(window.fetch)
+		{
+
+			// Envoi de la requête POST au serveur via fetch
+			fetch(url, options)
+			.then (response => response.json())
+
+			// Affichage de la confirmation de la commande et du récapitulatif :
+			.then(response => 
 				{
-					prixCommande += article.price;
+					var prixCommande = 0;
+
+					var prixArticlesCommande = response.products;
+
+					prixArticlesCommande.forEach(function(article)
+					{
+						prixCommande += article.price;
+					});
+
+					formElt.remove();
+
+					var confirmationElt = document.createElement('h2');
+					confirmationElt.textContent = 'Confirmation !';
+					confirmationElt.classList = 'confirmation__heading';
+
+					var merciElt = document.createElement('h3');
+					merciElt.textContent = 'Merci pour votre commande';
+					merciElt.classList = 'confirmation__subheading';
+
+					var totalElt = document.createElement('p');
+					totalElt.textContent = 'Prix total : ' + prixCommande / 100 + ' €';
+					totalElt.classList = 'confirmation__prix';
+
+					var orderElt = document.createElement('p');
+					orderElt.textContent = 'Numéro de commande : ' + response.orderId;
+					orderElt.classList= 'confirmation__order';
+
+					formContainer.appendChild(confirmationElt);
+					formContainer.appendChild(merciElt);
+					formContainer.appendChild(totalElt);
+					formContainer.appendChild(orderElt);
+				})
+
+			// Clear du local storage :
+			.then (response => 
+				{
+					localStorage.clear();
 				});
 
-				formElt.remove();
+		}
 
-				var confirmationElt = document.createElement('h2');
-				confirmationElt.textContent = 'Confirmation !';
-				confirmationElt.classList = 'confirmation__heading';
-
-				var merciElt = document.createElement('h3');
-				merciElt.textContent = 'Merci pour votre commande';
-				merciElt.classList = 'confirmation__subheading';
-
-				var totalElt = document.createElement('p');
-				totalElt.textContent = 'Prix total : ' + prixCommande / 100 + ' €';
-				totalElt.classList = 'confirmation__prix';
-
-				var orderElt = document.createElement('p');
-				orderElt.textContent = 'Numéro de commande : ' + response.orderId;
-				orderElt.classList= 'confirmation__order';
-
-				formContainer.appendChild(confirmationElt);
-				formContainer.appendChild(merciElt);
-				formContainer.appendChild(totalElt);
-				formContainer.appendChild(orderElt);
-			})
-
-		// Clear du local storage :
-		.then (response => 
-			{
-				localStorage.clear();
-			});
-
+		else
+		{
+			console.log('Requête fetch indisponible !');
+		}
 	}
 
 	else
 	{
-		console.log('Requête fetch indisponible !');
+		alert('Le panier est vide, remplissez le avant de passer votre commande !')
 	}
 	
 });
