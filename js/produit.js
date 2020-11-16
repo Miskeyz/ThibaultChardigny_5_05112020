@@ -16,6 +16,8 @@ var url = 'http://localhost:3000/api/teddies/' + id;
 fetch(url)
 .then (response => 
 	{
+		// Vérification si la réponse demandée existe :
+
 		if(response.ok)
 		{
 			response.json()
@@ -75,7 +77,7 @@ fetch(url)
 					var panierQuantite;
 
 					/* Vérification du bon fonctionnement du local storage 
-					(voir la fonction dans ajax.js) : */
+					(voir la fonction dans fonction.js) : */
 
 					if(storageAvailable('localStorage'))
 					{
@@ -144,6 +146,8 @@ fetch(url)
 			})
 		}
 
+		// Si la réponse n'existe pas alors on affiche un message d'erreur :
+
 		else
 		{
 			var err = document.createElement('p');
@@ -155,8 +159,6 @@ fetch(url)
 			document.getElementById('produit').appendChild(err);
 		}
 	})
-
-// Création de notre objet et instanciation pour créer le bloc produit :
 
 
 
