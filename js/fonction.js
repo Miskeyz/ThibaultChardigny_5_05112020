@@ -1,6 +1,6 @@
 function ajaxGet(url, callback)
 {
-	var req = new XMLHttpRequest();
+	let req = new XMLHttpRequest();
 	req.open('GET', url);
 	req.addEventListener('load', function()
 	{
@@ -13,9 +13,9 @@ function ajaxGet(url, callback)
 		{
 			console.error(req.status + ' ' + req.statusText + ' ' + url);
 
-            var message = document.createElement('p');
+            let message = document.createElement('p');
             message.textContent = 'Désolé, cette ressource n\'existe pas !';
-            var containerProduit = document.getElementById('produit');
+            let containerProduit = document.getElementById('produit');
             containerProduit.appendChild(message);
 		}
 	});
@@ -28,13 +28,13 @@ function ajaxGet(url, callback)
 	req.send(null);
 }
 
-// Fonction pour détecter que localeStorage est bien supporté par le navigateur et disponible :
+// Fonction pour détecter que le localStorage est bien supporté par le navigateur et disponible :
 
-function storageAvailable(type) 
+function storageAvailable(type)
 {
     try 
     {
-        var storage = window[type],
+        let storage = window[type],
             x = '__storage_test__';
         storage.setItem(x, x);
         storage.removeItem(x);
@@ -56,5 +56,47 @@ function storageAvailable(type)
             storage.length !== 0;
     }
 }
+
+// Fonction pour mettre à jour l'affichage du nombre d'article dans le panier : 
+
+function majPanier(panier)
+{
+    if(!panier)
+    {
+        let panierLabel = document.getElementsByClassName('panier-text')[0];
+        panierLabel.textContent = 0;
+    }
+
+    else
+    {
+        let panierLabel = document.getElementsByClassName('panier-text')[0];
+        panierLabel.textContent = panier;
+    }
+}
+
+// Création de la fonction globale qui servira à vérifier le bon formatage du formulaire :
+
+function verificationForm(regex, inputValue, errorMessage)
+{
+    inputValue.addEventListener('input', function(e)
+    {
+
+        if(regex.test(e.target.value) === true)
+        {
+            inputValue.classList = 'greenBorder';
+            errorMessage.textContent = ' ✔';
+            errorMessage.style.color = 'green';
+        }
+
+        else
+        {
+            inputValue.classList = 'redBorder';
+            errorMessage.textContent = ' ✗';
+            errorMessage.style.color = 'red';   
+        }
+
+    });
+}
+
 
 
