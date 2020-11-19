@@ -12,35 +12,35 @@ class Produit
 		this.description = description;
 	}
 
-	// Deux instances de la class Produit pour remplir nos pages HTML :
+	// Deux méthodes de la class Produit pour remplir nos pages HTML :
 
 	listProduitCreation()
 	{
 		// Création des cartes des produits pour la page index :
 
 		// Création d'un élément IMG :
-		var imgElt = document.createElement('img');
+		let imgElt = document.createElement('img');
 		imgElt.src = this.imageUrl;
 		imgElt.classList = 'produits-card__img rounded-top w-100';
 
 		// Création du nom du produit dans une balise h2:
-		var nomElt = document.createElement('h2');
+		let nomElt = document.createElement('h2');
 		nomElt.textContent = this.nom;
 		nomElt.classList = 'produits-card__heading pl-3 pt-3 mb-0';
 
 		//Création du prix dans un élément p :
-		var priceElt = document.createElement('p');
+		let priceElt = document.createElement('p');
 		priceElt.textContent = (this.prix / 100) + ' €';
 		priceElt.classList = 'produits-card__prix pl-3';
 
 		// Création de la carte clickable du produit :
-		var cardElt = document.createElement('a');
+		let cardElt = document.createElement('a');
 		cardElt.classList = 'card produits-card col-4 p-0 rounded'
 		cardElt.href = 'produit.html?id=' + this.id;
 
 
-		// Création du contenu de la carte :
-		var cardBodyElt = document.createElement('div');
+		// Création du conteneur de la carte :
+		let cardBodyElt = document.createElement('div');
 		cardBodyElt.classList = 'card-body p-0 produits-card__body';
 
 		// Ajout de l'image, du nom et du prix au contenu de la carte :
@@ -63,41 +63,41 @@ class Produit
 		document.title = this.nom + ' - Orinoco';
 
 		// Récupération du container du DOM : 
-		var containerProduit = document.getElementById('produit');
+		let containerProduit = document.getElementById('produit');
 
 		// Création de l'élément titre :
-		var nomProduit = document.createElement('h1');
+		let nomProduit = document.createElement('h1');
 		nomProduit.textContent = this.nom;
 		nomProduit.classList = 'produit__heading';
 
 		// Création de l'élément IMG :
-		var imgProduit = document.createElement('img');
+		let imgProduit = document.createElement('img');
 		imgProduit.src = this.imageUrl;
 		imgProduit.classList = 'produit__img';
 
 		// Création de l'élément description :
-		var descriptionProduit = document.createElement('p');
+		let descriptionProduit = document.createElement('p');
 		descriptionProduit.textContent = this.description;
 		descriptionProduit.classList = 'produit__txt';
 
 		// Création de l'élément prix :
-		var prixProduit = document.createElement('p');
+		let prixProduit = document.createElement('p');
 		prixProduit.textContent = (this.prix / 100) + ' €';
 		prixProduit.classList = 'produit__prix';
 
 		// Remplissage du formulaire pour le choix de couleur et la commande :
-		var formElt = document.createElement('form');
+		let formElt = document.createElement('form');
 		formElt.classList = 'produit__form';
 		formElt.id = 'produit__form';
 
 		// Création de l'élément select pour le choix de la couleur :
-		var couleurProduit = document.createElement('select');
-		var couleurs = this.colors;
+		let couleurProduit = document.createElement('select');
+		let couleurs = this.colors;
 
 		// Création des options :
 		couleurs.forEach(function(couleur)
 		{
-			var couleurOption = document.createElement('option');
+			let couleurOption = document.createElement('option');
 			couleurOption.setAttribute = couleur;
 			couleurOption.textContent = couleur;
 			couleurProduit.appendChild(couleurOption);
@@ -105,7 +105,7 @@ class Produit
 
 		// Création du bouton pour ajouter au panier :
 
-		var submitElt = document.createElement('input');
+		let submitElt = document.createElement('input');
 		submitElt.type = 'submit';
 		submitElt.value = 'Ajouter au panier';
 		submitElt.classList = 'produit__submit';
@@ -118,7 +118,7 @@ class Produit
 
 		// Ajout d'un élément pour afficher les messages d'erreurs :
 
-		var errorElt = document.createElement('p');
+		let errorElt = document.createElement('p');
 		errorElt.id = 'errorElt';
 
 		// Ajout des éléments à la page HTML :

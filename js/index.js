@@ -1,6 +1,6 @@
 // Récupération de notre container dans le DOM :
 
-var container = document.getElementById('produits-grid');
+let container = document.getElementById('produits-grid');
 
 // Création de la requête AJAX pour récupérer les données dans l'API :
 
@@ -8,11 +8,11 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 {
 	// Conversion des données reçuent en chaine de caractère :
 
-	var listeProduits = JSON.parse(reponse);
+	let listeProduits = JSON.parse(reponse);
 
 	listeProduits.forEach(function(produit)
 	{
-		var newProduit = new Produit
+		let newProduit = new Produit
 		(
 			produit.colors,
 			produit._id,

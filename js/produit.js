@@ -1,17 +1,17 @@
 // Récupération de l'id envoyé dans l'URL :
 
-var searchId = (new URL(document.location)).searchParams;
+let searchId = (new URL(document.location)).searchParams;
 let id = searchId.get('id');
 
 // Création des variables de notre produit :
 
-var couleurChoisie;
-var prixChoisie;
-var nomChoisie;
+let couleurChoisie;
+let prixChoisie;
+let nomChoisie;
 
 // Création de la requête Fetch pour récupérer les données dans l'API :
 
-var url = 'http://localhost:3000/api/teddies/' + id;
+let url = 'http://localhost:3000/api/teddies/' + id;
 
 fetch(url)
 .then (response => 
@@ -24,7 +24,9 @@ fetch(url)
 
 			.then (response => 
 			{	
-				var newProduit = new Produit
+
+				// Création d'une nouvelle instance de la classe Produit :
+				let newProduit = new Produit
 				(
 					response.colors,
 					response._id,
@@ -34,9 +36,10 @@ fetch(url)
 					response.description
 				);
 
+				// Application de la méthode produitCreation à l'instance crée :
 				newProduit.produitCreation();
 
-				var couleurProduit = document.getElementsByTagName('select')[0];
+				let couleurProduit = document.getElementsByTagName('select')[0];
 
 				// Mise à jour de nos variables en fonction du produit chargé :
 
@@ -49,7 +52,7 @@ fetch(url)
 			{
 				// On écoute les changements de la valeur de personnalisation de couleur :
 
-				var couleurProduit = document.getElementsByTagName('select')[0];
+				let couleurProduit = document.getElementsByTagName('select')[0];
 
 				couleurProduit.addEventListener('change', function(e)
 				{
@@ -62,8 +65,8 @@ fetch(url)
 
 			.then (response => 
 			{
-				var formElt = document.getElementsByTagName('form')[0];
-				var couleurProduit = document.getElementsByTagName('select')[0];
+				let formElt = document.getElementsByTagName('form')[0];
+				let couleurProduit = document.getElementsByTagName('select')[0];
 				
 				formElt.addEventListener('submit', function(e)
 				{
@@ -71,10 +74,10 @@ fetch(url)
 
 					// Selection du produit concerné : 
 
-					var currentProduit = id + couleurChoisie;
+					let currentProduit = id + couleurChoisie;
 
-					var quantite;
-					var panierQuantite;
+					let quantite;
+					let panierQuantite;
 
 					/* Vérification du bon fonctionnement du local storage 
 					(voir la fonction dans fonction.js) : */
@@ -93,7 +96,7 @@ fetch(url)
 						else
 						{
 							currentArticle = localStorage.getItem(currentProduit);
-							var currentQuantite = JSON.parse(currentArticle);
+							let currentQuantite = JSON.parse(currentArticle);
 							quantite = currentQuantite.quantite + 1;
 						}
 
@@ -115,7 +118,7 @@ fetch(url)
 
 						// Création de l'objet à envoyer :
 
-						var envoiPanier = 
+						let envoiPanier = 
 						{
 							id: id,
 							nom: nomChoisie,
@@ -131,14 +134,13 @@ fetch(url)
 
 						// Mise à jour du numéro inscrit dans l'icone du panier :
 
-						var panierLabelNumber = localStorage.getItem('panier');
-						var panierLabel = document.getElementsByClassName('panier-text')[0];
-						panierLabel.textContent = panierLabelNumber;
+						let panierLabelNumber = localStorage.getItem('panier');
+						majPanier(panierLabelNumber);
 					}
 
 					else
 					{
-						var error = document.getElementById('errorElt');
+						let error = document.getElementById('errorElt');
 						error.textContent = 'Oups panier indisponible !';
 						error.style.color = 'red';
 					}
@@ -150,7 +152,7 @@ fetch(url)
 
 		else
 		{
-			var err = document.createElement('p');
+			let err = document.createElement('p');
 			err.textContent = 'La ressource demandée n\'existe pas !';
 			err.style.color = 'red';
 			err.style.fontSize = '1.5em';
@@ -159,8 +161,6 @@ fetch(url)
 			document.getElementById('produit').appendChild(err);
 		}
 	})
-
-
 
 
 

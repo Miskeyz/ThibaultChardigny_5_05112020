@@ -19,40 +19,16 @@ var errorVille = document.getElementById('errorVille');
 var mail = document.getElementById('mail');
 var errorMail = document.getElementById('errorMail');
 
-var submitElt = document.getElementById('envoyer');
+let submitElt = document.getElementById('envoyer');
 
-var validate = false;
+let validate = false;
 
 // Paramétrage des variables de contrôles avec des regex :
 
-var regexNomPrenomVille = /^[A-Za-z-áÁâÂàÀåÅãÃäÄæÆçÇéÉêÊèÈëËíÍîÎìÌïÏñÑóÓôÔòÒøØõÕöÖœŒšŠúÚûÛùÙüÜýÝÿŸ]+$/;
-var regexAdresse = /^[0-9]+\s*[A-Za-z]*\s[A-Za-z]+\s[A-Za-z0-9\sàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+$/;
-var regexCp = /[0-9]{5}/;
-var regexMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
-// Création de la fonction globale qui servira à effectuer les tests :
-
-function verificationForm(regex, inputValue, errorMessage)
-{
-	inputValue.addEventListener('input', function(e)
-	{
-
-		if(regex.test(e.target.value) === true)
-		{
-			inputValue.classList = 'greenBorder';
-			errorMessage.textContent = ' ✔';
-			errorMessage.style.color = 'green';
-		}
-
-		else
-		{
-			inputValue.classList = 'redBorder';
-			errorMessage.textContent = ' ✗';
-			errorMessage.style.color = 'red';	
-		}
-
-	});
-}
+let regexNomPrenomVille = /^[A-Za-z-áÁâÂàÀåÅãÃäÄæÆçÇéÉêÊèÈëËíÍîÎìÌïÏñÑóÓôÔòÒøØõÕöÖœŒšŠúÚûÛùÙüÜýÝÿŸ]+$/;
+let regexAdresse = /^[0-9]+\s*[A-Za-z]*\s[A-Za-z]+\s[A-Za-z0-9\sàáâãäåçèéêëìíîïðòóôõöùúûüýÿ]+$/;
+let regexCp = /[0-9]{5}/;
+let regexMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
 // Mise en application de notre fonction de test :
 
@@ -67,7 +43,7 @@ verificationForm(regexNomPrenomVille, ville, errorVille);
 
 form.addEventListener('input', function()
 {
-	var errorSearch = document.getElementsByClassName('greenBorder');
+	let errorSearch = document.getElementsByClassName('greenBorder');
 
 	// Si c'est bien le cas on réactive le bouton pour envoyer :
 	if(errorSearch.length === 6)

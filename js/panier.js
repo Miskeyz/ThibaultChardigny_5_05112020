@@ -1,19 +1,19 @@
 // Récupération du container dans lequel on affichera notre panier :
 
-var containerElt = document.getElementsByClassName('commande')[0];
+let containerElt = document.getElementsByClassName('commande')[0];
 
 /* Création d'un array qui contiendra les id des différents 
 produits une fois le panier chargé : */
 
-var products = [];
+let products = [];
 
 /* Création d'une requête ajax pour scanner le local storage en fonction 
 des id et couleurs (les clés créées dans le localstorage sont au format id + couleur)*/
 
 ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 {
-	var listeProduits = JSON.parse(reponse);
-	var prixTotal = 0;
+	let listeProduits = JSON.parse(reponse);
+	let prixTotal = 0;
 
 	// Pour chaque produit....
 
@@ -26,7 +26,7 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 
 		listeCouleurs.forEach(function(couleur)
 		{
-			var currentProduit = produitId + couleur;
+			let currentProduit = produitId + couleur;
 
 			// On regarde si le produit existe dans le local storage :
 
@@ -41,46 +41,46 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 
 			else
 			{
-				var produit = localStorage.getItem(currentProduit);
-				var currentArticle = JSON.parse(produit);
-				var produitNom = currentArticle.nom;
-				var produitPrix = currentArticle.prix;
-				var produitQuantite = currentArticle.quantite;
+				let produit = localStorage.getItem(currentProduit);
+				let currentArticle = JSON.parse(produit);
+				let produitNom = currentArticle.nom;
+				let produitPrix = currentArticle.prix;
+				let produitQuantite = currentArticle.quantite;
 
-				for(var i = 0; i < produitQuantite; i++)
+				for(let i = 0; i < produitQuantite; i++)
 				{
 					products.push(currentArticle.id);
 				}
 				
-				var produitTotal = (produitPrix * produitQuantite) / 100;
-				var produitCouleur = currentArticle.couleur;
+				let produitTotal = (produitPrix * produitQuantite) / 100;
+				let produitCouleur = currentArticle.couleur;
 
-				var nomElt = document.createElement('h2');
+				let nomElt = document.createElement('h2');
 				nomElt.textContent = produitNom;
 
-				var prixElt = document.createElement('p');
+				let prixElt = document.createElement('p');
 				prixElt.textContent = 'Prix : ' + produitPrix / 100 + ' €';
 
-				var quantiteElt = document.createElement('span');
+				let quantiteElt = document.createElement('span');
 				quantiteElt.textContent = 'Quantité : ' + produitQuantite;
 
-				var couleurElt = document.createElement('span');
+				let couleurElt = document.createElement('span');
 				couleurElt.textContent = 'Couleur : ' + produitCouleur;
 
-				var totalProduitElt = document.createElement('div');
+				let totalProduitElt = document.createElement('div');
 				totalProduitElt.textContent = 'Total produit : ' + produitTotal + ' €';
 
-				var boutonElt = document.createElement('button');
+				let boutonElt = document.createElement('button');
 				boutonElt.textContent = 'Retirer du panier';
 				boutonElt.classList = 'bouton-panier';
 
 				totalProduitElt.appendChild(document.createElement('br'));
 				totalProduitElt.appendChild(boutonElt);
 
-				var lineElt = document.createElement('div');
+				let lineElt = document.createElement('div');
 				lineElt.classList = 'ligne';
 
-				var blocLeftElt = document.createElement('div');
+				let blocLeftElt = document.createElement('div');
 				
 				blocLeftElt.appendChild(nomElt);
 				blocLeftElt.appendChild(prixElt);
@@ -102,7 +102,7 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 				boutonElt.addEventListener('click', function(e)
 				{
 					// Requête au local storage :
-					var panierLabelNumber = localStorage.getItem('panier');
+					let panierLabelNumber = localStorage.getItem('panier');
 
 					//Diminution de la quantité de produit :
 					panierLabelNumber -= produitQuantite;
@@ -111,9 +111,7 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 					localStorage.setItem('panier', panierLabelNumber);
 
 					//Mise à jour de l'affichage du nombre d'article dans le panier :
-					panierLabelNumber = localStorage.getItem('panier');
-					var panierLabel = document.getElementsByClassName('panier-text')[0];
-					panierLabel.textContent = panierLabelNumber;
+					majPanier(panierLabelNumber);
 
 					// Retrait du produit et de l'élément HTML :
 					localStorage.removeItem(currentProduit);
@@ -124,7 +122,7 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 					prixTotalElt.textContent = 'Total : ' + prixTotal + ' €';
 
 					// Retrait des id des produits dans l'array products :
-					var index = products.indexOf(currentArticle.id);
+					let index = products.indexOf(currentArticle.id);
 					products.splice(index, produitQuantite);									
 				});						
 			}
@@ -133,24 +131,40 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 	});
 
 	// Affichage du prix total du panier :
-	var prixTotalElt = document.createElement('h3');
+	let prixTotalElt = document.createElement('h3');
 	prixTotalElt.textContent = 'Total : ' + prixTotal + ' €';
 	prixTotalElt.id = 'prix-total';
 	containerElt.appendChild(prixTotalElt);
 
 });
 
-// Création d'une fonction pour effectuer la commande finale :
-function Commande(contact, products)
+// Création d'une class pour effectuer la commande finale :
+class Commande
 {
-	this.contact = contact;
-	this.products = products;
+	constructor(contact, products)
+	{
+		this.contact = contact;
+		this.products = products;
+	}
+}
+
+// Création de la classe Contact à ajouter dans la commande finale :
+
+class Contact{
+	constructor(firstName, lastName, address, city, email)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = adresse;
+		this.city = city;
+		this.email = email;
+	}
 }
 
 // Récupération des éléments du DOM à modifier :
-var submitForm = document.getElementById('envoyer');
-var formElt = document.querySelector('form');
-var formContainer = document.getElementById('form-container');
+let submitForm = document.getElementById('envoyer');
+let formElt = document.querySelector('form');
+let formContainer = document.getElementById('form-container');
 
 // Écoute du formulaire pour l'envoi au serveur :
 
@@ -164,23 +178,23 @@ submitForm. addEventListener('click', function(e)
 	{
 		// Création de l'objet “contact“ :
 
-		var contact = 
-		{
-			firstName: document.getElementById('prenom').value,
-			lastName: document.getElementById('nom').value,
-			address: document.getElementById('adresse').value,
-			city: document.getElementById('ville').value,
-			email: document.getElementById('mail').value
-		}
+		let contact = new Contact
+		(
+			document.getElementById('prenom').value,
+			document.getElementById('nom').value,
+			document.getElementById('adresse').value,
+			document.getElementById('ville').value,
+			document.getElementById('mail').value
+		)
 
 		// Mise au format JSON :
 
-		var maCommande = new Commande(contact, products);
-		var maCommandeJSON = JSON.stringify(maCommande);
+		let maCommande = new Commande(contact, products);
+		let maCommandeJSON = JSON.stringify(maCommande);
 
 		// Création des paramètres de notre futur requête fetch :
 
-		var options = 
+		let options = 
 		{
 			method: 'POST',
 			body: maCommandeJSON,
@@ -190,7 +204,7 @@ submitForm. addEventListener('click', function(e)
 			}
 		}
 
-		var url = 'http://localhost:3000/api/teddies/order';
+		let url = 'http://localhost:3000/api/teddies/order';
 
 		// Vérification du bon fonctionnenment de fetch :
 
@@ -204,9 +218,9 @@ submitForm. addEventListener('click', function(e)
 			// Affichage de la confirmation de la commande et du récapitulatif :
 			.then(response => 
 				{
-					var prixCommande = 0;
+					let prixCommande = 0;
 
-					var prixArticlesCommande = response.products;
+					let prixArticlesCommande = response.products;
 
 					prixArticlesCommande.forEach(function(article)
 					{
@@ -215,19 +229,19 @@ submitForm. addEventListener('click', function(e)
 
 					formElt.remove();
 
-					var confirmationElt = document.createElement('h2');
+					let confirmationElt = document.createElement('h2');
 					confirmationElt.textContent = 'Confirmation !';
 					confirmationElt.classList = 'confirmation__heading';
 
-					var merciElt = document.createElement('h3');
+					let merciElt = document.createElement('h3');
 					merciElt.textContent = 'Merci pour votre commande';
 					merciElt.classList = 'confirmation__subheading';
 
-					var totalElt = document.createElement('p');
+					let totalElt = document.createElement('p');
 					totalElt.textContent = 'Prix total : ' + prixCommande / 100 + ' €';
 					totalElt.classList = 'confirmation__prix';
 
-					var orderElt = document.createElement('p');
+					let orderElt = document.createElement('p');
 					orderElt.textContent = 'Numéro de commande : ' + response.orderId;
 					orderElt.classList= 'confirmation__order';
 
