@@ -21,7 +21,6 @@ var errorMail = document.getElementById('errorMail');
 
 let submitElt = document.getElementById('envoyer');
 
-let validate = false;
 
 // Paramétrage des variables de contrôles avec des regex :
 

@@ -1,3 +1,4 @@
+
 function ajaxGet(url, callback)
 {
 	let req = new XMLHttpRequest();
