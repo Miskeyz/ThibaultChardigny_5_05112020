@@ -1,3 +1,4 @@
+
 // Récupération de l'id envoyé dans l'URL :
 
 let searchId = (new URL(document.location)).searchParams;
