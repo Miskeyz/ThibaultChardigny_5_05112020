@@ -138,29 +138,6 @@ ajaxGet('http://localhost:3000/api/teddies', function(reponse)
 
 });
 
-// Création d'une class pour effectuer la commande finale :
-class Commande
-{
-	constructor(contact, products)
-	{
-		this.contact = contact;
-		this.products = products;
-	}
-}
-
-// Création de la classe Contact à ajouter dans la commande finale :
-
-class Contact{
-	constructor(firstName, lastName, address, city, email)
-	{
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = adresse;
-		this.city = city;
-		this.email = email;
-	}
-}
-
 // Récupération des éléments du DOM à modifier :
 let submitForm = document.getElementById('envoyer');
 let formElt = document.querySelector('form');
@@ -178,18 +155,25 @@ submitForm. addEventListener('click', function(e)
 	{
 		// Création de l'objet “contact“ :
 
-		let contact = new Contact
-		(
-			document.getElementById('prenom').value,
-			document.getElementById('nom').value,
-			document.getElementById('adresse').value,
-			document.getElementById('ville').value,
-			document.getElementById('mail').value
-		)
+		let contact = 
+		{
+			firstName: document.getElementById('prenom').value,
+			lastName: document.getElementById('nom').value,
+			address: document.getElementById('adresse').value,
+			city: document.getElementById('ville').value,
+			email: document.getElementById('mail').value
+		};
+
+		// Création de l'objet commande :
+
+		let maCommande = 
+		{
+			contact: contact, 
+			products: products
+		};
 
 		// Mise au format JSON :
 
-		let maCommande = new Commande(contact, products);
 		let maCommandeJSON = JSON.stringify(maCommande);
 
 		// Création des paramètres de notre futur requête fetch :
